@@ -1,0 +1,19 @@
+{
+  "name": "project-forge",
+  "owner": {
+    "name": "Vikram Pratap Singh",
+    "url": "https://github.com/vikrampratapsinghraghav"
+  },
+  "metadata": {
+    "description": "Start production-grade projects with clean architecture, a design system and rules that stay enforced.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "project-forge",
+      "source": "./plugins/project-forge",
+      "description": "/new-project bootstrap + CLAUDE.md + design tokens + hooks that enforce layers, design tokens and a green test gate before every commit.",
+      "category": "development"
+    }
+  ]
+}

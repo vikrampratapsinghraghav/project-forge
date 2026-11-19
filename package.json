@@ -1,0 +1,15 @@
+{
+  "name": "project-forge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Claude Code plugin marketplace: production-grade project bootstrap with enforced architecture and design rules.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate.js",
+    "verify": "npm run validate && npm test"
+  }
+}
