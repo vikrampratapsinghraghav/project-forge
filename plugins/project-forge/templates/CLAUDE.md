@@ -58,6 +58,9 @@
 - Build screens from primitives in `{{UI_PRIMITIVES_PATH}}`; add a variant before adding a new component.
 - Accessible by default: labels, focus states, contrast, 44×44 touch targets.
 
+## Working style
+{{WORKING_STYLE}}
+
 ## Workflow
 1. Non-trivial change → short plan first, then implement in small steps.
 2. Keep changes focused; one concern per commit.

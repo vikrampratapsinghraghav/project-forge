@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/vikrampratapsinghraghav/project-forge/actions/workflows/test.yml"><img alt="tests" src="https://github.com/vikrampratapsinghraghav/project-forge/actions/workflows/test.yml/badge.svg"></a>
-  <img alt="version 0.4.0" src="https://img.shields.io/badge/version-0.4.0-3a4049?style=flat-square">
+  <img alt="version 0.5.0" src="https://img.shields.io/badge/version-0.5.0-3a4049?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-3a4049?style=flat-square">
   <img alt="Node 18 or newer" src="https://img.shields.io/badge/node-18%2B-3a4049?style=flat-square">
 </p>

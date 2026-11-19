@@ -13,10 +13,17 @@ Never write application code until the user approves the plan in Phase 3.
 - The user prefers short, skimmable messages: first line = the point, max 5 bullets.
 - Templates live in `${CLAUDE_PLUGIN_ROOT}/templates/`. Read them; fill every `{{PLACEHOLDER}}`; never leave a placeholder in the output.
 - Works the same on macOS and in cloud sessions: no OS-specific commands, no absolute home paths.
+- Use only **latest stable** versions: check with `npm view <pkg> version`, never from memory. No beta/canary unless asked.
+- Prefer few, well-maintained dependencies. Reject packages with no release in 12 months or known vulnerabilities.
 
 ## Phase 0 — Mode and prerequisites
 1. If the current folder already has code, ask: **adopt** this repo (add docs, config, hooks, CI without rewriting code) or **new** project in a subfolder.
-2. Helper plugins are declared as dependencies of project-forge and install automatically with it:
+2. **Git identity.** Show the identity commits would use (`git config user.name` / `user.email`) and, if `gh` is installed, the active `gh auth status` account.
+   - If the user's own instructions (their global CLAUDE.md or memory) name an identity for this kind of project, use it. Otherwise ask once which identity this project uses.
+   - Set it repo-locally (`git config user.name …` / `git config user.email …`, never `--global`) right after `git init`, before the first commit.
+   - If the active `gh` account differs from the one this project should use, say so and suggest `gh auth switch` before any push or repo creation.
+   - Skip this step in cloud sessions, where the platform sets the identity.
+3. Helper plugins are declared as dependencies of project-forge and install automatically with it:
    - `superpowers` (brainstorming, writing-plans, TDD) — used in Phases 2–3
    - `feature-dev` (code-architect agent) — used in Phase 2
    - `frontend-design` — used by the design-system skill
@@ -30,7 +37,7 @@ Collect, in this order, stopping as soon as answers are clear:
 2. Platform: web, mobile (iOS/Android), or both?
 3. Stack: offer the default — **Next.js (App Router, TypeScript)** for web, **Expo (React Native, TypeScript, expo-router)** for mobile — OR "find the best fit". If best fit: propose max 2 alternatives with one-line trade-offs, then let the user choose.
 4. Backend/data needs: none / Supabase / own API / other.
-5. Auth needed? Payments? Offline? (only ask what matters for this project)
+5. Auth needed? Payments? Offline? Expected scale and hard constraints (budget, hosting, deadline)? (only ask what matters for this project)
 6. Package manager: default **pnpm**.
 Summarise the answers in ≤5 bullets and confirm.
 
@@ -66,7 +73,7 @@ Each milestone small and shippable. **Wait for explicit approval.**
    - `templates/github/dependabot.yml` → `.github/dependabot.yml`.
 6. **Reliability baseline**: one HTTP client wrapper in the `network` layer with timeout, typed errors and safe retries; app/route error boundary; a logger that never prints secrets.
 7. Copy and fill:
-   - `templates/CLAUDE.md` → `CLAUDE.md`
+   - `templates/CLAUDE.md` → `CLAUDE.md`. Fill `{{WORKING_STYLE}}` from the user's personal instructions (global CLAUDE.md: how they want replies and how they build), rewritten as short project rules with nothing private (no emails, tokens or account IDs). Cloud sessions don't see personal files, so this section is how those preferences reach them. If there are none, write: "Short replies: the point first, then at most 5 bullets."
    - `templates/docs/ARCHITECTURE.md` → `ARCHITECTURE.md`
    - `templates/docs/SECURITY.md` → `SECURITY.md`
    - `templates/github/ci.yml` → `.github/workflows/ci.yml`

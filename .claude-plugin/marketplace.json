@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Start production-grade projects with clean architecture, a design system and rules that stay enforced.",
-    "version": "0.4.0"
+    "version": "0.5.0"
   },
   "allowCrossMarketplaceDependenciesOn": ["claude-plugins-official"],
   "plugins": [

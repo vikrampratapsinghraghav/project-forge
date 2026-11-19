@@ -8,6 +8,10 @@ description: Create or extend a project's design system — visual direction, de
 Goal: every colour, size and font in the UI comes from **one tokens source**, and screens are built from shared primitives. This is what keeps the app looking designed instead of generated.
 
 ## Step 1 — Direction (one question at a time)
+First ask: **"Pick the direction yourself, or let me decide?"**
+- **Let me decide:** ask nothing more. Derive the mood from the product, audience and core action. If a `ui-ux-pro-max` skill is available, use its design-system generator as a starting point, then run it through the avoid-list review below.
+- **I'll pick:** ask the questions below.
+
 1. Brand/mood in 3 words (e.g. "calm, trustworthy, modern").
 2. Any references: Figma link, websites, screenshots, existing brand colours or logo?
 3. Light, dark, or both? (default: both)
@@ -39,8 +43,14 @@ Each primitive: typed props, accessible by default (labels, roles, focus ring, 4
 ## Step 4 — DESIGN.md
 Fill `${CLAUDE_PLUGIN_ROOT}/templates/docs/DESIGN.md` → `DESIGN.md`: direction, the one bold element, the defaults you deliberately avoided, token tables, primitives with examples, do/don't rules, accessibility and copy rules.
 
-## Step 4b — Self-critique with eyes
-After the first real screen exists, look at it (screenshot via a browser tool if available). Check it against `references/avoid-generic.md`, fix what reads as generated, and cut one decorative element.
+## Step 4b — Live design page
+Add a dev-only design page: a `/design` route on web, a Design screen on mobile. It shows the palette, semantic tokens in light and dark, the type scale, spacing, and every primitive in every state. This is what screenshots and reviewers look at.
+
+## Step 4c — Self-critique with eyes
+Never design blind. With a browser tool (Playwright or the built-in browser), screenshot the design page and each real screen at desktop (1440) and mobile (390), in light and dark.
+1. Check each against `references/avoid-generic.md` and DESIGN.md: one primary action per screen, spacing from the scale, AA contrast in both themes, real loading/empty/error states.
+2. Fix what reads as generated, cut one decorative element, and take new screenshots. At most 3 rounds; list anything still open.
+3. If an `impeccable` skill is available, run its audit and fix what fails.
 
 ## Step 5 — Enforcement
 - Make sure `.forge/config.json → design.checkDirs` covers the UI folders and `design.tokensFiles` lists the tokens file(s). The post-edit hook then flags raw hex/rgb/px **and decorative gradients / glass blur** in UI files.
