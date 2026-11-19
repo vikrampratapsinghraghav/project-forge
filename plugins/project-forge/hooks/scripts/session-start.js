@@ -20,7 +20,9 @@ function main() {
     'project-forge is active in this repository.',
     `Rules live in: ${docs.join(', ') || '(none found)'}. Follow them for every change.`,
     'Enforced automatically:',
+    '- Writing secrets into files and dangerous shell commands (rm -rf /, force-push to main, curl | sh, --no-verify) are blocked.',
     '- Layer boundaries and design tokens are checked after every file edit.',
+    '- Commits are blocked if they would include secrets or an un-ignored .env file.',
     `- Every git commit runs "${project.config.verifyCommand || '(verifyCommand not set)'}" and is blocked if it fails.`,
     'Working agreement: plan before non-trivial changes, search for existing code before creating new code, write tests with every logic change, never weaken tests to pass, and run /update-rules when a new decision is made.',
   ];

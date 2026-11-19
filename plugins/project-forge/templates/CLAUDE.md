@@ -9,7 +9,7 @@
 
 ## Commands
 - `{{PM}} dev` — run locally
-- `{{PM}} verify` — lint + typecheck + tests (must pass before every commit; enforced by hook)
+- `{{PM}} verify` — lint + typecheck + tests + dead-code (knip) + size budget (must pass before every commit; enforced by hook)
 - `{{PM}} test` — tests only
 
 ## Architecture (see ARCHITECTURE.md)
@@ -30,10 +30,28 @@
 - Never delete, skip or weaken a test to make it pass.
 - Tests live next to the code: `name.test.ts(x)`.
 
-## Security rules
-- No secrets in code or commits. `.env*` is git-ignored; document vars in `.env.example`.
-- Validate all user and external input. Escape output; no unsafe HTML.
-- Least-privilege keys; server-only secrets never reach the client bundle.
+## Security rules (see SECURITY.md)
+- No secrets in code or commits. `.env*` is git-ignored; document vars in `.env.example`. (Hooks block keys and un-ignored .env files.)
+- Server-only secrets never reach the client bundle (no secrets in `NEXT_PUBLIC_*` / `EXPO_PUBLIC_*`).
+- Validate all user and external input on the server (zod). Never trust client-side checks alone.
+- Every data access checks **authorization** (who may read/write this record), not just authentication. {{AUTHZ_NOTE}}
+- Escape output; no `dangerouslySetInnerHTML` / raw HTML from users. Parameterized queries only.
+- Security headers + CSP on web; rate-limit auth and write endpoints; generic error messages to users.
+- Add a dependency only when needed; prefer well-maintained packages; CI runs `audit`.
+
+## Performance rules
+- Budgets are part of `verify`: {{PERF_BUDGETS}}. Exceeding one is a failing build, not a warning.
+- Paginate lists; never fetch unbounded data. No N+1 queries; batch or join.
+- Cache deliberately (HTTP cache headers, query cache) and document invalidation.
+- Lazy-load heavy routes/components; optimize images (framework image component, correct sizes).
+- Avoid unnecessary re-renders: stable props, memo only where profiling shows it helps.
+- Measure before optimizing; record the before/after number in the PR.
+
+## Reliability rules
+- Every network call has a timeout, typed errors and a user-visible failure state.
+- Retries only for idempotent operations, with backoff.
+- Error boundary at app/route level; log errors with context, never log secrets or personal data.
+- No unused code or dependencies (`knip` runs in `verify`).
 
 ## Design rules (see DESIGN.md)
 - Colours, sizes, fonts, shadows come from tokens only ({{TOKENS_PATH}}). Raw values are flagged by hook.
@@ -43,6 +61,6 @@
 ## Workflow
 1. Non-trivial change → short plan first, then implement in small steps.
 2. Keep changes focused; one concern per commit.
-3. Before committing: `{{PM}} verify` (hook enforces) and, for bigger changes, `/forge-review`.
+3. Before committing: `{{PM}} verify` (hook enforces) and, for bigger changes, `/forge-review`. Before a release: `/security-audit`.
 4. Structure or decision changed → update ARCHITECTURE.md or add an ADR in the same change.
 5. New convention or a mistake that must not repeat → `/update-rules`.

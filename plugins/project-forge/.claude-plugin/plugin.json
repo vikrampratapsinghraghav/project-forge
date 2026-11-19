@@ -1,6 +1,6 @@
 {
   "name": "project-forge",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Bootstrap production-grade projects (Next.js / Expo or best fit) with clean layered architecture, a token-based design system, a living CLAUDE.md, and hooks that keep the rules enforced.",
   "author": {
     "name": "Vikram Pratap Singh",

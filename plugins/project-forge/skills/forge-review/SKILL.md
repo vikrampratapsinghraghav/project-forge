@@ -10,6 +10,8 @@ description: Review current changes against the project's rules before committin
 3. In parallel, run:
    - **architecture-guardian** agent on the changed files
    - **design-guardian** agent if any UI files changed
+   - **security-guardian** agent if auth, data access, API/route handlers, env/config or dependencies changed
+   - **performance-guardian** agent if dependencies, data fetching, queries or list/screen rendering changed
    - `pr-review-toolkit` test/error-handling reviewers if available
 4. If `code-simplifier` is available, ask whether to run it on the changed files (never change behaviour).
 5. Report in this format, most severe first, max 10 items:
