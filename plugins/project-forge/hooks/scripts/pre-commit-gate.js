@@ -9,6 +9,7 @@ const { spawnSync } = require('node:child_process');
 const { readHookInput } = require('./read-input');
 const { findForgeProject } = require('../../lib/config');
 const { findSecrets, isLocalSecretFile } = require('../../lib/secrets');
+const { runVerify } = require('../../lib/verify');
 
 function git(root, args) {
   const r = spawnSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
@@ -63,10 +64,6 @@ function isCommitCommand(command) {
   return COMMIT_RE.test(command);
 }
 
-function tail(text, lines) {
-  return String(text || '').split(/\r?\n/).slice(-lines).join('\n');
-}
-
 function main() {
   const input = readHookInput();
   const command = input && input.tool_input && input.tool_input.command;
@@ -87,7 +84,7 @@ function main() {
     return 2;
   }
 
-  const { verifyCommand, verifyTimeoutSec } = project.config;
+  const { verifyCommand } = project.config;
   if (!verifyCommand) {
     process.stderr.write(
       'project-forge: commit blocked — .forge/config.json has no "verifyCommand". Add one (e.g. "pnpm verify") so every commit is checked.\n',
@@ -95,25 +92,15 @@ function main() {
     return 2;
   }
 
-  const result = spawnSync(verifyCommand, {
-    cwd: project.root,
-    shell: true,
-    encoding: 'utf8',
-    timeout: verifyTimeoutSec * 1000,
-    env: { ...process.env, CI: process.env.CI || '1', FORCE_COLOR: '0' },
-  });
+  const result = runVerify(project);
+  if (result.ok) return 0;
 
-  if (result.status === 0) return 0;
-
-  const reason = result.error && result.error.code === 'ETIMEDOUT'
-    ? `timed out after ${verifyTimeoutSec}s`
-    : `exited with code ${result.status}`;
   process.stderr.write(
     [
-      `project-forge: commit blocked — "${verifyCommand}" ${reason}.`,
+      `project-forge: commit blocked — "${verifyCommand}" ${result.reason}.`,
       'Fix the failures below, then commit again. Do not skip, delete or weaken tests to make this pass.',
       '--- output (last 60 lines) ---',
-      tail(`${result.stdout || ''}\n${result.stderr || ''}`, 60),
+      result.output,
     ].join('\n') + '\n',
   );
   return 2;

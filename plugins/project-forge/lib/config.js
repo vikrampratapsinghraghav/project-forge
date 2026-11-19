@@ -40,6 +40,7 @@ function normalizeConfig(raw) {
   return {
     verifyCommand: typeof cfg.verifyCommand === 'string' ? cfg.verifyCommand : null,
     verifyTimeoutSec: Number.isFinite(cfg.verifyTimeoutSec) ? cfg.verifyTimeoutSec : 600,
+    verifyOnStop: cfg.verifyOnStop !== false,
     aliases: isPlainObject(cfg.aliases) ? cfg.aliases : { '@/': 'src/' },
     layers: isPlainObject(cfg.layers) ? cfg.layers : {},
     forbidden: isPlainObject(cfg.forbidden) ? cfg.forbidden : {},

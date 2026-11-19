@@ -64,15 +64,16 @@ Each milestone small and shippable. **Wait for explicit approval.**
    - `knip` (unused files, exports, dependencies).
    - Web: `size-limit` with a budget on the main client bundle (start ≈200 KB gzipped for first-load JS; adjust and record the number in CLAUDE.md `{{PERF_BUDGETS}}`). Optional Lighthouse CI job for the key page.
    - Mobile: bundle size check via `expo export` size report against a recorded budget.
-4. Add `.env.example`, a typed env module (zod, fails fast at startup, separates server and public vars), and `.gitignore` covering `.env*` except `.env.example`.
-5. **Security baseline** (record each item in `SECURITY.md` from `templates/docs/SECURITY.md`):
+4. **Git pre-commit hook** so commits made outside Claude are checked too: `husky` (web) or `lefthook` (any stack) running `verify` (or a fast subset: lint + typecheck + tests on staged files with `lint-staged`). Claude's own commits and turn ends are already gated by project-forge's hooks; CI is the final backstop.
+5. Add `.env.example`, a typed env module (zod, fails fast at startup, separates server and public vars), and `.gitignore` covering `.env*` except `.env.example`.
+6. **Security baseline** (record each item in `SECURITY.md` from `templates/docs/SECURITY.md`):
    - Web: copy `templates/next-security-headers.ts` and wire it into `next.config`; tighten CSP to real origins.
    - Server input validated with zod in every route handler / server action; generic error messages to users.
    - Auth: every data access checks authorization. With Supabase: enable RLS on every table, write policies, keep the service-role key server-only.
    - Rate limiting on auth and write endpoints (e.g. middleware or provider feature).
    - `templates/github/dependabot.yml` → `.github/dependabot.yml`.
-6. **Reliability baseline**: one HTTP client wrapper in the `network` layer with timeout, typed errors and safe retries; app/route error boundary; a logger that never prints secrets.
-7. Copy and fill:
+7. **Reliability baseline**: one HTTP client wrapper in the `network` layer with timeout, typed errors and safe retries; app/route error boundary; a logger that never prints secrets.
+8. Copy and fill:
    - `templates/CLAUDE.md` → `CLAUDE.md`. Fill `{{WORKING_STYLE}}` from the user's personal instructions (global CLAUDE.md: how they want replies and how they build), rewritten as short project rules with nothing private (no emails, tokens or account IDs). Cloud sessions don't see personal files, so this section is how those preferences reach them. If there are none, write: "Short replies: the point first, then at most 5 bullets."
    - `templates/docs/ARCHITECTURE.md` → `ARCHITECTURE.md`
    - `templates/docs/SECURITY.md` → `SECURITY.md`
@@ -80,7 +81,7 @@ Each milestone small and shippable. **Wait for explicit approval.**
    - `templates/github/pull_request_template.md` → `.github/pull_request_template.md`
    - the matching preset → `.forge/config.json` (set `verifyCommand`, layer folders, tokens file paths)
    - `templates/claude-settings.json` → `.claude/settings.json` (merge if one exists)
-8. Write one real test per layer so the structure is proven, not empty.
+9. Write one real test per layer so the structure is proven, not empty.
 
 ## Phase 5 — Design system
 Run the **design-system** skill (`/design-system`). It produces tokens, `DESIGN.md` and the UI primitives.

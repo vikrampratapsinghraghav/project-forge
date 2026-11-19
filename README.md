@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/vikrampratapsinghraghav/project-forge/actions/workflows/test.yml"><img alt="tests" src="https://github.com/vikrampratapsinghraghav/project-forge/actions/workflows/test.yml/badge.svg"></a>
-  <img alt="version 0.5.0" src="https://img.shields.io/badge/version-0.5.0-3a4049?style=flat-square">
+  <img alt="version 0.6.0" src="https://img.shields.io/badge/version-0.6.0-3a4049?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-3a4049?style=flat-square">
   <img alt="Node 18 or newer" src="https://img.shields.io/badge/node-18%2B-3a4049?style=flat-square">
 </p>
@@ -58,6 +58,7 @@ Nothing is generated until you approve the plan.
 | Before a file is written | Secret guard | Blocks API keys, tokens and private keys in code |
 | Before a shell command runs | Danger guard | Blocks `rm -rf /`, force-push to `main`, `curl \| sh`, `--no-verify`, `chmod 777` and printing `.env` |
 | After every edit | Layer and design check | Flags UI importing network or data, raw colours and sizes outside the tokens file, and decorative gradients or glass blur |
+| Before Claude ends a turn | Turn gate | Runs `verify` when files changed since the last pass, so Claude fixes failures before handing back (`"verifyOnStop": false` turns it off) |
 | Before every commit | Commit gate | Blocks secrets and un-ignored `.env` files, then runs `verify` (lint, typecheck, tests, dead code, size budget) |
 | On every push | CI | Runs `verify` and a dependency audit |
 

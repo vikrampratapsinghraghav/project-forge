@@ -90,3 +90,47 @@ test('session-start: prints rules in a forge project, nothing elsewhere', () => 
   const plain = fs.mkdtempSync(path.join(os.tmpdir(), 'plain-'));
   assert.equal(runHook('session-start.js', { cwd: plain }).stdout, '');
 });
+
+function gitInit(root) {
+  const run = (...args) => spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+  run('init', '-q');
+  run('-c', 'user.name=t', '-c', 'user.email=t@t', 'add', '-A');
+  run('-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-qm', 'init');
+}
+
+test('stop-gate: failing verify after a change exits 2 with the output', () => {
+  const root = makeProject('node -e "console.log(\'lint failed\'); process.exit(1)"');
+  gitInit(root);
+  writeFile(root, 'src/features/a.ts', 'export const a = 1;\n');
+  const r = runHook('stop-gate.js', { cwd: root, stop_hook_active: false });
+  assert.equal(r.status, 2);
+  assert.match(r.stderr, /lint failed/);
+});
+
+test('stop-gate: no changes, a retry, or verifyOnStop=false never runs verify', () => {
+  const root = makeProject('node -e "process.exit(1)"');
+  gitInit(root);
+  assert.equal(runHook('stop-gate.js', { cwd: root }).status, 0);
+  writeFile(root, 'src/features/a.ts', 'export const a = 1;\n');
+  assert.equal(runHook('stop-gate.js', { cwd: root, stop_hook_active: true }).status, 0);
+  const cfgPath = path.join(root, '.forge', 'config.json');
+  fs.writeFileSync(cfgPath, JSON.stringify({ ...JSON.parse(fs.readFileSync(cfgPath, 'utf8')), verifyOnStop: false }));
+  assert.equal(runHook('stop-gate.js', { cwd: root }).status, 0);
+});
+
+test('stop-gate: a passing state is remembered and not re-verified', () => {
+  const marker = path.join(os.tmpdir(), `forge-ran-${process.pid}-${Date.now()}`);
+  const root = makeProject(`node -e "require('fs').appendFileSync('${marker}', 'x')"`);
+  gitInit(root);
+  writeFile(root, 'src/features/a.ts', 'export const a = 1;\n');
+  assert.equal(runHook('stop-gate.js', { cwd: root }).status, 0);
+  assert.equal(runHook('stop-gate.js', { cwd: root }).status, 0);
+  assert.equal(fs.readFileSync(marker, 'utf8'), 'x');
+});
+
+test('stop-gate: outside a forge project is a silent no-op', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'plain-'));
+  const r = runHook('stop-gate.js', { cwd: root });
+  assert.equal(r.status, 0);
+  assert.equal(r.stderr, '');
+});
