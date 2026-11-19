@@ -48,6 +48,7 @@ function normalizeConfig(raw) {
       checkDirs: arrayOf(cfg.design && cfg.design.checkDirs),
       extensions: arrayOf(cfg.design && cfg.design.extensions, ['.tsx', '.jsx', '.css', '.scss']),
       ignore: arrayOf(cfg.design && cfg.design.ignore, ['.test.', '.spec.', '.stories.']),
+      allow: arrayOf(cfg.design && cfg.design.allow),
     },
   };
 }

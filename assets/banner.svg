@@ -1,62 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-label="project-forge — start clean, stay clean">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1e1b4b"/>
-      <stop offset="0.55" stop-color="#4c1d95"/>
-      <stop offset="1" stop-color="#9d174d"/>
-    </linearGradient>
-    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fde68a"/>
-      <stop offset="0.5" stop-color="#fb923c"/>
-      <stop offset="1" stop-color="#f472b6"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.85" cy="0.2" r="0.6">
-      <stop offset="0" stop-color="#f97316" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#f97316" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glow2" cx="0.1" cy="0.95" r="0.5">
-      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="project-forge: the ui layer may use logic, logic may use network and data; ui importing network directly is blocked">
+  <rect x="0.75" y="0.75" width="1198.5" height="298.5" rx="10" fill="#EEF0EE" stroke="#C9CDD1" stroke-width="1.5"/>
 
-  <rect width="1200" height="340" rx="24" fill="url(#bg)"/>
-  <rect width="1200" height="340" rx="24" fill="url(#glow)"/>
-  <rect width="1200" height="340" rx="24" fill="url(#glow2)"/>
-
-  <!-- anvil + spark mark -->
-  <g transform="translate(80 96)">
-    <rect x="0" y="0" width="120" height="120" rx="28" fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.25"/>
-    <path d="M24 58h60c0 12 10 18 20 18v10H74l-6 12h10v8H38v-8h10l-6-12H32c-4-10-8-18-8-28z" fill="url(#title)"/>
-    <path d="M86 24l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#fde68a"/>
-    <circle cx="104" cy="22" r="3" fill="#f472b6"/>
-    <circle cx="66" cy="30" r="2.5" fill="#fb923c"/>
+  <g font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="72" y="136" font-size="62" font-weight="700" fill="#1C2026" letter-spacing="-1">project-forge</text>
+    <text x="74" y="182" font-size="23" fill="#4A535B">Start projects the professional way.</text>
+    <text x="74" y="214" font-size="23" fill="#4A535B">Keep them that way, automatically.</text>
   </g>
 
-  <text x="236" y="150" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="72" font-weight="800" fill="url(#title)" letter-spacing="-1.5">project-forge</text>
-  <text x="238" y="196" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="26" font-weight="500" fill="#e9d5ff">Start production-grade projects. Keep them clean — automatically.</text>
+  <!-- the product idea: layers that only depend downward -->
+  <g font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17">
+    <!-- ui -->
+    <rect x="740" y="34" width="190" height="44" rx="4" fill="#FFFFFF" stroke="#1C2026" stroke-width="1.5"/>
+    <text x="835" y="62" text-anchor="middle" fill="#1C2026" font-weight="600">ui</text>
+    <!-- logic -->
+    <rect x="740" y="124" width="190" height="44" rx="4" fill="#FFFFFF" stroke="#1C2026" stroke-width="1.5"/>
+    <text x="835" y="152" text-anchor="middle" fill="#1C2026" font-weight="600">logic</text>
+    <!-- network + data -->
+    <rect x="740" y="214" width="190" height="44" rx="4" fill="#FFFFFF" stroke="#1C2026" stroke-width="1.5"/>
+    <text x="835" y="242" text-anchor="middle" fill="#1C2026" font-weight="600">data</text>
+    <rect x="968" y="214" width="170" height="44" rx="4" fill="#FFFFFF" stroke="#1C2026" stroke-width="1.5"/>
+    <text x="1053" y="242" text-anchor="middle" fill="#1C2026" font-weight="600">network</text>
 
-  <!-- pills -->
-  <g font-family="ui-sans-serif, -apple-system, 'Segoe UI', Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="600">
-    <g transform="translate(238 232)">
-      <rect width="150" height="38" rx="19" fill="#22d3ee" fill-opacity="0.18" stroke="#22d3ee" stroke-opacity="0.6"/>
-      <text x="75" y="25" text-anchor="middle" fill="#a5f3fc">🏗 Architecture</text>
+    <!-- allowed edges -->
+    <g stroke="#5E6A71" stroke-width="1.5" fill="none">
+      <path d="M835 78 V118"/>
+      <path d="M829 112 l6 8 6-8"/>
+      <path d="M835 168 V208"/>
+      <path d="M829 202 l6 8 6-8"/>
+      <path d="M930 146 H1053 V208"/>
+      <path d="M1047 202 l6 8 6-8"/>
     </g>
-    <g transform="translate(402 232)">
-      <rect width="138" height="38" rx="19" fill="#f472b6" fill-opacity="0.18" stroke="#f472b6" stroke-opacity="0.6"/>
-      <text x="69" y="25" text-anchor="middle" fill="#fbcfe8">🎨 Design</text>
+
+    <!-- blocked edge: the single accent -->
+    <g stroke="#C8501E" stroke-width="2" fill="none">
+      <path d="M930 56 H1100 V208" stroke-dasharray="6 5"/>
     </g>
-    <g transform="translate(554 232)">
-      <rect width="138" height="38" rx="19" fill="#34d399" fill-opacity="0.18" stroke="#34d399" stroke-opacity="0.6"/>
-      <text x="69" y="25" text-anchor="middle" fill="#a7f3d0">🛡 Security</text>
+    <g transform="translate(1100 110)">
+      <circle r="13" fill="#EEF0EE" stroke="#C8501E" stroke-width="2"/>
+      <path d="M-5 -5 L5 5 M5 -5 L-5 5" stroke="#C8501E" stroke-width="2.2" stroke-linecap="round"/>
     </g>
-    <g transform="translate(706 232)">
-      <rect width="168" height="38" rx="19" fill="#fbbf24" fill-opacity="0.18" stroke="#fbbf24" stroke-opacity="0.6"/>
-      <text x="84" y="25" text-anchor="middle" fill="#fde68a">⚡ Performance</text>
-    </g>
-    <g transform="translate(888 232)">
-      <rect width="120" height="38" rx="19" fill="#a78bfa" fill-opacity="0.2" stroke="#a78bfa" stroke-opacity="0.6"/>
-      <text x="60" y="25" text-anchor="middle" fill="#ddd6fe">✅ Tests</text>
-    </g>
+    <text x="1120" y="116" fill="#C8501E" font-size="15" font-weight="600">blocked</text>
   </g>
 </svg>

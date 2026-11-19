@@ -1,23 +1,65 @@
 {
   "verifyCommand": "pnpm verify",
   "verifyTimeoutSec": 600,
-  "aliases": { "@/": "src/" },
+  "aliases": {
+    "@/": "src/"
+  },
   "layers": {
-    "ui": ["app", "src/components", "src/ui"],
-    "logic": ["src/features", "src/domain", "src/hooks"],
-    "network": ["src/services", "src/api"],
-    "data": ["src/data", "src/storage"]
+    "ui": [
+      "app",
+      "src/components",
+      "src/ui"
+    ],
+    "logic": [
+      "src/features",
+      "src/domain",
+      "src/hooks"
+    ],
+    "network": [
+      "src/services",
+      "src/api"
+    ],
+    "data": [
+      "src/data",
+      "src/storage"
+    ]
   },
   "forbidden": {
-    "ui": ["network", "data"],
-    "logic": ["ui"],
-    "network": ["ui", "logic"],
-    "data": ["ui", "logic", "network"]
+    "ui": [
+      "network",
+      "data"
+    ],
+    "logic": [
+      "ui"
+    ],
+    "network": [
+      "ui",
+      "logic"
+    ],
+    "data": [
+      "ui",
+      "logic",
+      "network"
+    ]
   },
   "design": {
-    "tokensFiles": ["src/ui/theme/tokens.ts"],
-    "checkDirs": ["app", "src/components", "src/ui"],
-    "extensions": [".tsx", ".jsx"],
-    "ignore": [".test.", ".spec.", ".stories."]
+    "tokensFiles": [
+      "src/ui/theme/tokens.ts"
+    ],
+    "checkDirs": [
+      "app",
+      "src/components",
+      "src/ui"
+    ],
+    "extensions": [
+      ".tsx",
+      ".jsx"
+    ],
+    "ignore": [
+      ".test.",
+      ".spec.",
+      ".stories."
+    ],
+    "allow": []
   }
 }

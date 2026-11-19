@@ -15,7 +15,14 @@ Goal: every colour, size and font in the UI comes from **one tokens source**, an
 
 If a **design-scout** skill is available, run it with the mood + product idea and show the 3–5 best references.
 If a Figma link is given and a Figma MCP is connected, pull variables/styles from it and use them as the source of truth.
-Use the **frontend-design** skill (if available) to choose a distinctive direction: type pairing, colour story, spacing rhythm, motion feel. Present it in ≤5 bullets and get approval.
+
+**Read `references/avoid-generic.md` before proposing anything.** The goal is a UI that looks designed for *this* product, not generated.
+
+1. Ground the direction in the subject: its industry, audience, materials and vocabulary.
+2. Draft a compact plan: 4–6 named colours (hex), 1–2 typefaces with roles, a layout concept with an ASCII wireframe, and 3 principles. Use the **frontend-design** skill if available.
+3. **Review the plan against the avoid list.** For each part, ask "would I propose this for any similar product?" Revise every default, and write one line per revision: what changed and why.
+4. Name the **one bold element**. Everything else stays quiet.
+5. Present the revised plan in ≤5 bullets and get approval.
 
 ## Step 2 — Tokens (single source of truth)
 Create the tokens file at the path set in `.forge/config.json → design.tokensFiles` (start from `${CLAUDE_PLUGIN_ROOT}/templates/tokens.ts`):
@@ -30,10 +37,14 @@ Build in the `ui` layer (e.g. `src/ui/`): `Text`, `Heading`, `Button` (variants:
 Each primitive: typed props, accessible by default (labels, roles, focus ring, 44×44 touch target on mobile), one test for behaviour, and a usage example in DESIGN.md.
 
 ## Step 4 — DESIGN.md
-Fill `${CLAUDE_PLUGIN_ROOT}/templates/docs/DESIGN.md` → `DESIGN.md`: direction, token tables, primitives with examples, do/don't rules, accessibility rules.
+Fill `${CLAUDE_PLUGIN_ROOT}/templates/docs/DESIGN.md` → `DESIGN.md`: direction, the one bold element, the defaults you deliberately avoided, token tables, primitives with examples, do/don't rules, accessibility and copy rules.
+
+## Step 4b — Self-critique with eyes
+After the first real screen exists, look at it (screenshot via a browser tool if available). Check it against `references/avoid-generic.md`, fix what reads as generated, and cut one decorative element.
 
 ## Step 5 — Enforcement
-- Make sure `.forge/config.json → design.checkDirs` covers the UI folders and `design.tokensFiles` lists the tokens file(s). The post-edit hook then flags raw hex/rgb/px in UI files.
+- Make sure `.forge/config.json → design.checkDirs` covers the UI folders and `design.tokensFiles` lists the tokens file(s). The post-edit hook then flags raw hex/rgb/px **and decorative gradients / glass blur** in UI files.
+- If the approved direction genuinely uses gradients or blur, add them to `design.allow` (`["gradient"]`, `["blur"]`) and record why in DESIGN.md. Otherwise they stay blocked.
 - Run the `accessibility-review` skill on the first real screen if it is available.
 - Report what was created in ≤5 bullets.
 

@@ -1,14 +1,17 @@
 /**
  * Design tokens — the ONLY place raw colour/size values may live.
  * Components import `theme` (semantic tokens), never `palette` directly.
- * Replace the example values with the approved direction from /design-system.
+ *
+ * PLACEHOLDER VALUES. /design-system replaces every value below with the approved,
+ * subject-specific direction. Do not ship these, and do not swap in a framework's
+ * default palette (e.g. Tailwind indigo/violet) as the brand.
  */
 
 export const palette = {
-  neutral: { 0: '#ffffff', 50: '#f7f7f8', 100: '#ececef', 300: '#c4c4cc', 500: '#7a7a85', 700: '#3f3f46', 900: '#18181b' },
-  brand: { 100: '#e0e7ff', 500: '#4f46e5', 600: '#4338ca', 700: '#3730a3' },
-  red: { 500: '#dc2626' },
-  green: { 500: '#16a34a' },
+  neutral: { 0: '#ffffff', 50: '#f5f6f7', 100: '#e8eaed', 300: '#b9bec5', 500: '#6b727c', 700: '#3a4049', 900: '#1c2026' },
+  brand: { 100: '#dde7ea', 500: '#3d6b78', 600: '#335a65', 700: '#284852' },
+  red: { 500: '#c2362f' },
+  green: { 500: '#2f7d4f' },
 } as const;
 
 export const space = { 0: 0, 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24, 8: 32, 10: 40, 12: 48, 16: 64 } as const;
