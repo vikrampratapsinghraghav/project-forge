@@ -83,13 +83,16 @@ Every project created with `/new-project` comes with:
 ## 🧭 How it works
 
 ```mermaid
-flowchart LR
-    A["💡 Your idea"]:::idea --> B["❓ Discovery<br/>one question at a time"]:::step
-    B --> C["🏗️ Architecture<br/>layers + ADR"]:::step
-    C --> D["📋 Plan<br/>you approve"]:::gate
-    D --> E["🧱 Scaffold<br/>tooling, tests, CI"]:::step
-    E --> F["🎨 Design system<br/>tokens + primitives"]:::step
-    F --> G["✅ verify passes<br/>first commit"]:::done
+flowchart TB
+    subgraph S1 [" 1 · Think "]
+      direction LR
+      A["💡 Your idea"]:::idea --> B["❓ Discovery<br/>one question at a time"]:::step --> C["🏗️ Architecture<br/>layers + ADR"]:::step --> D["📋 Plan<br/>you approve"]:::gate
+    end
+    subgraph S2 [" 2 · Build "]
+      direction LR
+      E["🧱 Scaffold<br/>tooling, tests, CI"]:::step --> F["🎨 Design system<br/>tokens + primitives"]:::step --> G["✅ verify passes<br/>first commit"]:::done
+    end
+    S1 --> S2
 
     classDef idea fill:#fde68a,stroke:#f59e0b,color:#78350f
     classDef step fill:#ede9fe,stroke:#8b5cf6,color:#3b0764
