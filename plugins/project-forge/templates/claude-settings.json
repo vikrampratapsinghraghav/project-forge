@@ -4,17 +4,11 @@
       "source": {
         "source": "github",
         "repo": "vikrampratapsinghraghav/project-forge"
-      }
+      },
+      "autoUpdate": true
     }
   },
   "enabledPlugins": {
-    "project-forge@project-forge": true,
-    "superpowers@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true
+    "project-forge@project-forge": true
   }
 }

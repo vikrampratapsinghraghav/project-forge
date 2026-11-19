@@ -1,6 +1,6 @@
 {
   "name": "project-forge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bootstrap production-grade projects (Next.js / Expo or best fit) with clean layered architecture, a token-based design system, a living CLAUDE.md, and hooks that keep the rules enforced.",
   "author": {
     "name": "Vikram Pratap Singh",
@@ -9,5 +9,14 @@
   "homepage": "https://github.com/vikrampratapsinghraghav/project-forge",
   "repository": "https://github.com/vikrampratapsinghraghav/project-forge",
   "license": "MIT",
-  "keywords": ["scaffold", "architecture", "design-system", "claude-md", "hooks", "tdd"]
+  "keywords": ["scaffold", "architecture", "design-system", "claude-md", "hooks", "tdd"],
+  "dependencies": [
+    { "name": "superpowers", "marketplace": "claude-plugins-official" },
+    { "name": "feature-dev", "marketplace": "claude-plugins-official" },
+    { "name": "frontend-design", "marketplace": "claude-plugins-official" },
+    { "name": "pr-review-toolkit", "marketplace": "claude-plugins-official" },
+    { "name": "code-simplifier", "marketplace": "claude-plugins-official" },
+    { "name": "claude-md-management", "marketplace": "claude-plugins-official" },
+    { "name": "security-guidance", "marketplace": "claude-plugins-official" }
+  ]
 }

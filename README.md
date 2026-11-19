@@ -19,15 +19,9 @@ Works the same on **macOS, Linux and cloud sessions**. Hooks are plain Node scri
 /plugin marketplace add vikrampratapsinghraghav/project-forge
 /plugin install project-forge@project-forge
 ```
-Recommended companions, all from the official marketplace:
-```text
-/plugin install superpowers@claude-plugins-official
-/plugin install feature-dev@claude-plugins-official
-/plugin install frontend-design@claude-plugins-official
-/plugin install pr-review-toolkit@claude-plugins-official
-/plugin install code-simplifier@claude-plugins-official
-/plugin install claude-md-management@claude-plugins-official
-```
+This also installs the companion plugins from the official marketplace automatically: `superpowers`, `feature-dev`, `frontend-design`, `pr-review-toolkit`, `code-simplifier`, `claude-md-management` and `security-guidance`. If one is missing, run `/reload-plugins`.
+
+Plugin dependencies need a recent Claude Code version. Run `claude update` if the dependencies don't install.
 
 ### Cloud sessions / every project automatically
 `/new-project` writes `.claude/settings.json` into each project:
@@ -39,7 +33,7 @@ Recommended companions, all from the official marketplace:
   "enabledPlugins": { "project-forge@project-forge": true }
 }
 ```
-Any session that opens the repo (once the folder is trusted) loads the plugin and the companion plugins.
+Any session that opens the repo (once the folder is trusted) loads the plugin, and its dependencies come with it.
 
 ## How the rules are enforced
 
@@ -68,7 +62,7 @@ npm run verify   # validates manifests + runs tests (node:test, zero dependencie
 ## Limits (honest)
 - Layer checks are static import analysis. They catch most boundary breaks, not all of them (e.g. runtime injection).
 - Design checks flag raw values in UI folders. Judging taste and consistency still relies on the design guardian and you.
-- A plugin can't force-install other plugins. Project settings enable them, and Claude Code asks you to install them.
+- Companion plugins come from Anthropic's official marketplace. If one is renamed or removed there, update `plugin.json`.
 
 ## License
 MIT

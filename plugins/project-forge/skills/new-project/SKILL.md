@@ -16,12 +16,13 @@ Never write application code until the user approves the plan in Phase 3.
 
 ## Phase 0 — Mode and prerequisites
 1. If the current folder already has code, ask: **adopt** this repo (add docs, config, hooks, CI without rewriting code) or **new** project in a subfolder.
-2. Check which helper plugins/skills are available in this session and tell the user in one short list what is missing (do not stop if some are missing — degrade gracefully):
+2. Helper plugins are declared as dependencies of project-forge and install automatically with it:
    - `superpowers` (brainstorming, writing-plans, TDD) — used in Phases 2–3
    - `feature-dev` (code-architect agent) — used in Phase 2
    - `frontend-design` — used by the design-system skill
-   - `pr-review-toolkit`, `code-simplifier`, `claude-md-management` — used later
-   The generated `.claude/settings.json` enables all of them for this project, so future sessions (Mac or cloud) get them automatically.
+   - `pr-review-toolkit`, `code-simplifier`, `claude-md-management`, `security-guidance` — used later
+   If any of them is not available in this session, say so in one line (suggest `/reload-plugins`) and continue — degrade gracefully.
+   The generated `.claude/settings.json` enables project-forge for this project, so future sessions (Mac or cloud) load it and its dependencies automatically.
 
 ## Phase 1 — Discovery (one question at a time)
 Collect, in this order, stopping as soon as answers are clear:

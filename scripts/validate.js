@@ -43,6 +43,19 @@ if (market && plugin) {
   const entry = market.plugins.find((p) => p.name === plugin.name);
   if (!entry) errors.push('marketplace.json does not list the plugin by its plugin.json name');
   else if (!fs.existsSync(path.join(ROOT, entry.source))) errors.push(`plugin source missing: ${entry.source}`);
+
+  if (plugin.version !== market.metadata.version) errors.push('plugin.json version and marketplace metadata.version differ');
+
+  // Cross-marketplace dependencies only install when the root marketplace allowlists them.
+  const allowed = new Set(market.allowCrossMarketplaceDependenciesOn || []);
+  for (const dep of plugin.dependencies || []) {
+    const name = typeof dep === 'string' ? dep.split('@')[0] : dep.name;
+    const mkt = typeof dep === 'string' ? dep.split('@')[1] : dep.marketplace;
+    if (!name) errors.push(`dependency without a name: ${JSON.stringify(dep)}`);
+    if (mkt && mkt !== market.name && !allowed.has(mkt)) {
+      errors.push(`dependency ${name}@${mkt} needs "${mkt}" in allowCrossMarketplaceDependenciesOn`);
+    }
+  }
 }
 
 for (const dir of fs.readdirSync(path.join(PLUGIN, 'skills'))) {
