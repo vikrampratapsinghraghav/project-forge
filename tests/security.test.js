@@ -29,7 +29,7 @@ test('findSecrets detects common key formats', () => {
   assert.deepEqual(findSecrets(`STRIPE=${FAKE.stripe}`).map((h) => h.id), ['stripe-live-key']);
   assert.deepEqual(findSecrets(`x = "${FAKE.anthropic}"`).map((h) => h.id), ['anthropic-key']);
   assert.deepEqual(findSecrets(FAKE.pem).map((h) => h.id), ['private-key']);
-  assert.deepEqual(findSecrets("const password = 'S3cure-and-long-value!';").map((h) => h.id), ['hardcoded-credential']);
+  assert.deepEqual(findSecrets("const password = 'S3cure-and-long-value!';").map((h) => h.id), ['hardcoded-credential']); // forge-ignore: intentional test fixture
 });
 
 test('findSecrets ignores env reads, placeholders and forge-ignore', () => {
